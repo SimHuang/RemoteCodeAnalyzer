@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteCodeAnalyzer", "RemoteCodeAnalyzer\RemoteCodeAnalyzer.csproj", "{8D8675D4-4117-4EB8-8BD8-57219D6A07CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteCodeAnalyzerClient", "RemoteCodeAnalyzerClient\RemoteCodeAnalyzerClient.csproj", "{53F472BD-1C69-477A-A8DB-E3FD64EB6C7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D8675D4-4117-4EB8-8BD8-57219D6A07CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D8675D4-4117-4EB8-8BD8-57219D6A07CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D8675D4-4117-4EB8-8BD8-57219D6A07CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D8675D4-4117-4EB8-8BD8-57219D6A07CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F472BD-1C69-477A-A8DB-E3FD64EB6C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F472BD-1C69-477A-A8DB-E3FD64EB6C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F472BD-1C69-477A-A8DB-E3FD64EB6C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F472BD-1C69-477A-A8DB-E3FD64EB6C7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0156F09-6897-41B7-B8D8-E647FC29A290}
+	EndGlobalSection
+EndGlobal

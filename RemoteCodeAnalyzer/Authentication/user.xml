@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<users>
+  <user>
+    <privelege>admin</privelege>
+    <username>sam_smith</username>
+    <password>123456</password>
+    <directories></directories>
+  </user>
+  <user>
+    <privelege>user</privelege>
+    <username>john_smith</username>
+    <password>123456</password>
+    <directories></directories>
+  </user>
+  <user>
+    <privelege>user</privelege>
+    <username>jane_doe</username>
+    <password>123456</password>
+    <directories></directories>
+  </user>
+</users>
