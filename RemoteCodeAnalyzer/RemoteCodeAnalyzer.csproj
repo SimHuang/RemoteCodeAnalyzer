@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\Authentication.cs" />
+    <Compile Include="FileTransferMessage.cs" />
+    <Compile Include="File\FileData.cs" />
+    <Compile Include="File\FileStream.cs" />
     <Compile Include="MessageService\IMessageService.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageService\MessageService.cs" />
@@ -58,12 +61,11 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="FileDownload\" />
-    <Folder Include="FileUpload\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Authentication\user.xml" />
+    <EmbeddedResource Include="Authentication\user.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

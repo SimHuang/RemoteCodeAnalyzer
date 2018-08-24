@@ -6,6 +6,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.IO;
+using System.Collections;
+using System.Xml;
 
 /**
  * This contains the main service implementation for client and server message passing. The 
@@ -40,8 +43,48 @@ namespace MessageService
         public bool authenticateUser(Message message)
         {
             Console.Write(message.dateTime + " " + message.author + " - " + message.messageType + "\n");
-            //return Authentication.authenticateUser(message);
-            return true;
+            return Authentication.authenticateUser(message);
+            //return true;
+        }
+
+        /*
+         * Download a file from server to client
+         */
+        public Stream downloadFile(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
+         * Upload a file from client to server
+         */
+        public void uploadFile(FileTransferMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*Retrieve a list of file names base on directory name
+          The directory name is base on the username. We search for the 
+          node with a matching name and get all files.
+         */
+        public ArrayList retrieveFiles(string directory)
+        {
+            ArrayList fileList = new ArrayList();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("../../Authentication/user.xml");
+            
+            foreach(XmlNode node in doc.DocumentElement)
+            {
+                string actualDirectoryName = node["username"].InnerText;
+                if(actualDirectoryName.Equals(directory))
+                {
+                    string[] files = node["files"].InnerText.ToString().Split('|');
+                    fileList.AddRange(files);
+                    break;
+                }
+            }
+
+            return fileList;
         }
     }
 }

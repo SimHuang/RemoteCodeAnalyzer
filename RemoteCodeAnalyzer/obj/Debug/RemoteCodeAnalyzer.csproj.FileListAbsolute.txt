@@ -5,3 +5,4 @@ C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Debug\RemoteCod
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Debug\RemoteCodeAnalyzer.csproj.CoreCompileInputs.cache
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Debug\RemoteCodeAnalyzer.exe
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Debug\RemoteCodeAnalyzer.pdb
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\bin\Debug\Authentication\user.xml

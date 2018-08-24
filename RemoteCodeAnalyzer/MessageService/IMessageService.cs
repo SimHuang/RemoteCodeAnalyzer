@@ -1,6 +1,8 @@
 ﻿using RemoteCodeAnalyzer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -20,5 +22,14 @@ namespace MessageService
 
         [OperationContract]
         bool authenticateUser(Message message);
+
+        [OperationContract]
+        Stream downloadFile(string filename);
+
+        [OperationContract]
+        void uploadFile(FileTransferMessage msg);
+
+        [OperationContract]
+        ArrayList retrieveFiles(string directory);
     }
 }
