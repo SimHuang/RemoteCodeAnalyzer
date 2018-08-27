@@ -16,3 +16,4 @@ C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Debug\Rem
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\RemoteCodeAnalyzer.exe
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\RemoteCodeAnalyzer.pdb
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\RemoteCodeAnalyzer.exe.config
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\Authentication\user.xml

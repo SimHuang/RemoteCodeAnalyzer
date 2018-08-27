@@ -6,25 +6,54 @@
         xmlns:local="clr-namespace:RemoteCodeAnalyzerClient"
         mc:Ignorable="d"
         Loaded="MainWindow_Loaded"
-        Title="RemoteCodeAnalyzer" Height="407.126" Width="687.529">
+        Title="RemoteCodeAnalyzer" Height="514.209" Width="745.841">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="376" VerticalAlignment="Top" Width="680">
+        <TabControl HorizontalAlignment="Left" Height="483" VerticalAlignment="Top" Width="738">
             <TabItem Name="LoginTab" Header="Login">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox Name="usernameTextbox" HorizontalAlignment="Left" Height="23" Margin="196,98,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="267" />
-                    <TextBox Name="passwordTextbox" HorizontalAlignment="Left" Height="21" Margin="196,131,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="267" />
-                    <Button Content="Login" HorizontalAlignment="Left" Margin="196,157,0,0" VerticalAlignment="Top" Width="267" Height="25" Click="Handle_User_Login"/>
-                    <Label Name="messageLabel" Content="Message Label" HorizontalAlignment="Left" Margin="196,211,0,0" VerticalAlignment="Top" Height="29" Width="267"/>
-                    <Label Content="Authorization" HorizontalAlignment="Left" Margin="196,67,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="0.489,0.89"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="53*"/>
+                        <ColumnDefinition Width="191*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="usernameTextbox" HorizontalAlignment="Left" Height="23" Margin="37.495,98,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="267" Grid.Column="1" />
+                    <TextBox Name="passwordTextbox" HorizontalAlignment="Left" Height="21" Margin="37.495,131,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="267" Grid.Column="1" />
+                    <Button Content="Login" HorizontalAlignment="Left" Margin="37.495,157,0,0" VerticalAlignment="Top" Width="267" Height="25" Click="Handle_User_Login" Grid.Column="1"/>
+                    <Label Name="messageLabel" Content="Message Label" HorizontalAlignment="Left" Margin="37.495,211,0,0" VerticalAlignment="Top" Height="29" Width="267" Grid.Column="1"/>
+                    <Label Content="Authorization" HorizontalAlignment="Left" Margin="37.495,67,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="0.489,0.89" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Name="DirectoryTab" Header="Directories">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <ListBox Name="DirectoryList" HorizontalAlignment="Left" Height="266" Margin="7,121,0,0" VerticalAlignment="Top" Width="712" SelectionChanged="DirectoryList_SelectionChanged"/>
+                    <TextBox Name="DirectoryNameBox" HorizontalAlignment="Left" Height="23" Margin="7,46,0,0" TextWrapping="Wrap" Text="Enter a Valid Directory Name" VerticalAlignment="Top" Width="590"/>
+                    <Label Name="DirectoryMessage" Content="Label" HorizontalAlignment="Left" Margin="7,407,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.331,-0.409" Width="712"/>
+                    <Button Name="RetrieveButton" Content="Retrieve" HorizontalAlignment="Left" Margin="614,45,0,0" VerticalAlignment="Top" Width="105" Click="RetrieveButton_Click"/>
+                    <Label Content="Files in Directory:" HorizontalAlignment="Left" Margin="7,90,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Label Content="Retrieve Files from Directory" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Width="576"/>
+                </Grid>
             </TabItem>
-            <TabItem Name="UploadTab" Header="Upload">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Name="FileTab" Header="Files">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Grant File Permission to Other Users" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="712"/>
+                    <Label Content="Files" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.312,-0.056" Width="56"/>
+                    <Label Content="User" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
+                    <Button Name="grantPermissionButton" Content="Grant Permission" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="712" Click="grantPermissionButton_Click"/>
+                    <TextBox Name="grantPermissionUserTextBox" HorizontalAlignment="Left" Height="23" Margin="53,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="669"/>
+                    <ComboBox Name="FileDropdown" HorizontalAlignment="Left" Margin="53,63,0,0" VerticalAlignment="Top" Width="669"/>
+                    <Label Name="FileMessageLabel" Content="Label" HorizontalAlignment="Left" Margin="10,407,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.097,0.359" Width="712"/>
+                </Grid>
             </TabItem>
-            <TabItem Name="DownloadTab" Header="Download">
+            <TabItem Name="UploadTab" Header="Up/Down">
+                <Grid Background="#FFE5E5E5">
+                    <Label Name="FileActionLabel" Content="Label" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top" Width="712"/>
+                    <TextBox Name="FileActionTextBox" HorizontalAlignment="Left" Height="23" Margin="95,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="627"/>
+                    <Label Content="Input File:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.152,-0.113" Width="80"/>
+                    <Button Content="Download File" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="712" Click="Download_File"/>
+                    <Button Content="Upload File" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top" Width="712" Click="Upload_File"/>
+                    <Label Content="Enter a correct filename for upload/download:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.372,0.17" Width="712"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Admin" Header="Admin">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

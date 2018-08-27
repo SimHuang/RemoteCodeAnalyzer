@@ -9,6 +9,7 @@ using System.Text;
 using System.IO;
 using System.Collections;
 using System.Xml;
+using RemoteCodeAnalyzer.File;
 
 /**
  * This contains the main service implementation for client and server message passing. The 
@@ -52,7 +53,7 @@ namespace MessageService
          */
         public Stream downloadFile(string filename)
         {
-            throw new NotImplementedException();
+            return ServerFileStream.downloadFile(filename);
         }
 
         /*
@@ -60,7 +61,7 @@ namespace MessageService
          */
         public void uploadFile(FileTransferMessage msg)
         {
-            throw new NotImplementedException();
+            ServerFileStream.uploadFile(msg);
         }
 
         /*Retrieve a list of file names base on directory name
@@ -85,6 +86,15 @@ namespace MessageService
             }
 
             return fileList;
+        }
+
+        /*
+         * compare the file string in the message object to the author. If the author matches 
+         * the file owner, then grant permission to the user of their choice.
+         */
+        public string grantFilePermission(Message message)
+        {
+            return FilePermission.grantFilePermission(message);
         }
     }
 }

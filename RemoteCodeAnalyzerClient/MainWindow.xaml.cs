@@ -1,7 +1,9 @@
 ﻿using MessageService;
 using RemoteCodeAnalyzer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -45,6 +47,8 @@ namespace RemoteCodeAnalyzerClient
             initializeTabControl();
 
             initalizeAuthenticationTab();
+
+            initializeDirectoryTab();
         }
 
         /**
@@ -52,12 +56,12 @@ namespace RemoteCodeAnalyzerClient
          * with a proper user login
          */
         private void initializeTabControl()
-        {
-            DownloadTab.IsEnabled = false;
+        {   
             DirectoryTab.IsEnabled = false;
             UploadTab.IsEnabled = false;
-            DownloadTab.IsEnabled = false;
             LoginTab.IsEnabled = false;
+            FileTab.IsEnabled = false;
+            Admin.IsEnabled = false;
         }
 
         /**
@@ -66,6 +70,40 @@ namespace RemoteCodeAnalyzerClient
         private void initalizeAuthenticationTab()
         {
             messageLabel.Content = "";
+        }
+
+        /**
+         * Prep the directory tab
+         */
+        public void initializeDirectoryTab()
+        {
+            DirectoryMessage.Content = "";
+        }
+
+        /*
+         * prepare the upload/download tab 
+         */
+        public void initializeUpDownTab()
+        {
+            FileActionLabel.Content = "";
+        }
+
+        /*
+         * Prepare the file tab for use
+         */ 
+        public void initializeFilesTab()
+        {
+            FileMessageLabel.Content = "";
+            ArrayList files = channel.retrieveFiles(authenticatedUser);
+
+            List<File> fileList = new List<File>();
+            foreach(String file in files)
+            {
+                fileList.Add(new File() { name = file, value = file });
+            }
+           
+            //display files to user
+            FileDropdown.ItemsSource = files;
         }
 
         /*
@@ -89,6 +127,7 @@ namespace RemoteCodeAnalyzerClient
                 msg.sourceAddress = address;
                 msg.destinationAddress = address;
                 msg.messageType = "AUTHENTICATION";
+                msg.author = usernameTextbox.Text;
                 msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
                 msg.body = "<body>" +
                                 "<username>"+usernameTextbox.Text+"</username>" +
@@ -101,14 +140,16 @@ namespace RemoteCodeAnalyzerClient
                 {
                     //enable all tab controls to allow user access
                     messageLabel.Content = "User Successfully Authenticated!";
-                    authenticatedUser = usernameTextbox.Text;
+                    authenticatedUser = msg.author;
                     isAuthenticated = true;
-
-                    DownloadTab.IsEnabled = true;
+                    
                     DirectoryTab.IsEnabled = true;
                     UploadTab.IsEnabled = true;
-                    DownloadTab.IsEnabled = true;
+                    FileTab.IsEnabled = true;
                     LoginTab.IsEnabled = true;
+
+                    //initialize some ui data for user
+                    initializeFilesTab();
 
                 } else
                 {
@@ -125,7 +166,120 @@ namespace RemoteCodeAnalyzerClient
         {
             EndpointAddress endpoint = new EndpointAddress(address);
             BasicHttpBinding binding = new BasicHttpBinding();
+            binding.TransferMode = TransferMode.Streamed;
+            binding.MaxReceivedMessageSize = 50000000;
             channel = ChannelFactory<IMessageService>.CreateChannel(binding, endpoint);
+        }
+
+        /*
+         * Event handler for directory tab when use wants to retrieve a directory by clicking the 
+         * retrieve button
+         */
+        private void RetrieveButton_Click(object sender, RoutedEventArgs e)
+        {
+            string directoryName = DirectoryNameBox.Text;
+            if(directoryName.Equals("") || 
+                directoryName.Equals(" ") ||
+                directoryName.Equals("Enter a Valid Directory Name")) {
+
+                string errorMessage = "Please enter a valid directory name!";
+                DirectoryNameBox.Text = "";
+                DirectoryMessage.Content = errorMessage;
+            }
+
+            //proper name is enter search for the directory
+            Message msg = new Message();
+            msg.sourceAddress = address;
+            msg.destinationAddress = address;
+            msg.messageType = "FILE_RETRIEVE";
+            msg.author = usernameTextbox.Text;
+            msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+            msg.body = DirectoryNameBox.Text;
+
+            ArrayList files = channel.retrieveFiles(msg.body);
+
+            //display files to user
+            DirectoryList.ItemsSource = files;
+        }
+
+        /*
+         * Grant file permission to a specific user
+         */
+        private void grantPermissionButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileSelected = FileDropdown.Text;
+            string userToGrant = grantPermissionUserTextBox.Text;
+
+            if(fileSelected.Equals("") || userToGrant.Equals("")) {
+                FileMessageLabel.Content = "Please fill out file and user input.";
+                return;
+            }
+
+            Message msg = new Message();
+            msg.sourceAddress = address;
+            msg.destinationAddress = address;
+            msg.messageType = "FILE_PERMISSION_GRANT";
+            msg.author = authenticatedUser;
+            msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+            msg.body = userToGrant + "|" + fileSelected;
+
+            string responseMessage = channel.grantFilePermission(msg);
+            FileMessageLabel.Content = responseMessage;
+        }
+
+        /*Download the specify file. The file name should match
+         a existing file in the FileStorage folder.*/
+        private void Download_File(object sender, RoutedEventArgs e)
+        {
+            string SavePath = "..\\..\\Download";
+            string fileToDownload = FileActionTextBox.Text;
+            int BlockSize = 1024;
+            byte[] block = new byte[BlockSize];
+
+            try
+            {
+                Stream strm = channel.downloadFile(fileToDownload);
+                string rfilename = System.IO.Path.Combine(SavePath, fileToDownload);
+                if (!Directory.Exists(SavePath))
+                    Directory.CreateDirectory(SavePath);
+                using (var outputStream = new FileStream(rfilename, FileMode.Create))
+                {
+                    while (true)
+                    {
+                        int bytesRead = strm.Read(block, 0, BlockSize);
+                        if (bytesRead > 0)
+                            outputStream.Write(block, 0, bytesRead);
+                        else
+                            break;
+                    }
+                }
+                Console.Write("\n  Received file \"{0}\"", fileToDownload);
+                FileActionLabel.Content = "\n  Received file " + fileToDownload;
+            }
+            catch (Exception ex)
+            {
+                Console.Write("\n  {0}\n", ex.Message);
+                FileActionLabel.Content = ex.Message;
+            }
+        }
+
+        /*
+         * Upload a file chosen by user to be uploadded to server
+         */
+        private void Upload_File(object sender, RoutedEventArgs e)
+        {
+            string filename = FileActionTextBox.Text;
+            string ToSendPath = "..\\..\\ToSend";
+
+            Console.Write("\n  sending file \"{0}\"", filename);
+            string fqname = System.IO.Path.Combine(ToSendPath, filename);
+            using (var inputStream = new FileStream(fqname, FileMode.Open))
+            {
+                FileTransferMessage msg = new FileTransferMessage();
+                msg.filename = filename;
+                msg.transferStream = inputStream;
+                channel.uploadFile(msg);
+            }
         }
     }
 }

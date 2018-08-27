@@ -31,5 +31,18 @@ namespace MessageService
 
         [OperationContract]
         ArrayList retrieveFiles(string directory);
+
+        [OperationContract]
+        string grantFilePermission(Message message);
+    }
+
+    [MessageContract]
+    public class FileTransferMessage
+    {
+        [MessageHeader(MustUnderstand = true)]
+        public string filename { get; set; }
+
+        [MessageBodyMember(Order = 1)]
+        public Stream transferStream { get; set; }
     }
 }
