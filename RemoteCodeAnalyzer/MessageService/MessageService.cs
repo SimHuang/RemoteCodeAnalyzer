@@ -1,4 +1,17 @@
-﻿using RemoteCodeAnalyzer;
+﻿///////////////////////////////////////////////////////////////////////
+///  MessageService.cs -                                           ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+/// The Message Service class implements the IMessageService        ///
+/// and contains all the message services for the client.           ///
+///////////////////////////////////////////////////////////////////////
+
+using RemoteCodeAnalyzer;
 using RemoteCodeAnalyzer.Authentication;
 using System;
 using System.Collections.Generic;
@@ -61,7 +74,10 @@ namespace MessageService
          */
         public void uploadFile(FileTransferMessage msg)
         {
-            ServerFileStream.uploadFile(msg);
+            Console.Write(DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt") + " - " + "UPLOAD FILE");
+            string response = ServerFileStream.uploadFile(msg);
+
+            //return response;
         }
 
         /*Retrieve a list of file names base on directory name

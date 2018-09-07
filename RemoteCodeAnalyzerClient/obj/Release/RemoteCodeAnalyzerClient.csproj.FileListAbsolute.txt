@@ -1,0 +1,17 @@
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\Authentication\user.xml
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzerClient.exe.config
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzerClient.exe
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzerClient.pdb
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzer.exe
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzer.pdb
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.csprojResolveAssemblyReference.cache
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\MainWindow.g.cs
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\App.g.cs
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient_MarkupCompile.cache
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient_MarkupCompile.lref
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\MainWindow.baml
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.g.resources
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.Properties.Resources.resources
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.csproj.GenerateResource.Cache
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.exe
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Release\RemoteCodeAnalyzerClient.pdb

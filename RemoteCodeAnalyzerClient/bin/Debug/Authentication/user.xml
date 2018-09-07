@@ -19,6 +19,6 @@
     <username>jane</username>
     <password>123456</password>
     <files>money.txt|code.txt</files>
-    <permission>hello.cs|instagram.cs|chicken.cs</permission>
+    <permission>hello.cs|instagram.cs|chicken.cs|instagram.cs|instagram.cs</permission>
   </user>
 </users>

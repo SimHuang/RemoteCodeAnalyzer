@@ -1,4 +1,20 @@
-﻿using MessageService;
+﻿///////////////////////////////////////////////////////////////////////
+///  RemoteCodeAnalyzer.xaml.cs -                                   ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+/// Methods: CreateChannel(), Main()                                /// 
+///                                                                 ///
+/// This is the starting point for the remoteCodeAnalyzer server.   ///   
+/// This file will start the server using the BasicHttpBinding,     ///
+/// be made ready to listen for client events.                      ///
+///////////////////////////////////////////////////////////////////////
+
+using MessageService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

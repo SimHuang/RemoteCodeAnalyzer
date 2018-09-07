@@ -1,0 +1,1 @@
+.\RemoteCodeAnalyzerClient\bin\Release\RemoteCodeAnalyzerClient.exe

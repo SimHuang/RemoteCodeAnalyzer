@@ -1,4 +1,19 @@
-﻿using MessageService;
+﻿///////////////////////////////////////////////////////////////////////
+///  ServiceFileStream.cs -                                         ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+/// Methods: downloadFile(), uploadFile()                           ///
+///                                                                 ///
+/// This class contains the service logic to handle the download and///    
+/// upload of files.                                                ///
+///////////////////////////////////////////////////////////////////////
+
+using MessageService;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +51,7 @@ namespace RemoteCodeAnalyzer.File
         /*
          * Service method to allow user to upload a file
          */
-        public static void uploadFile(FileTransferMessage msg)
+        public static string uploadFile(FileTransferMessage msg)
         {
             Console.Write("UPLOAD FILE");
             HRTimer.HiResTimer hrt = new HRTimer.HiResTimer();
@@ -58,6 +73,8 @@ namespace RemoteCodeAnalyzer.File
             }
             hrt.Stop();
             Console.Write("\n  Received file \"{0}\"", filename);
+
+            return "File successfully uploaded.";
         }
     }
 }

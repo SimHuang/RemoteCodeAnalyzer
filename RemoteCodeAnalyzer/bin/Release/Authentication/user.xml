@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<users>
+  <user name="sam_smith">
+    <privelege>admin</privelege>
+    <username>samsmith</username>
+    <password>123456</password>
+    <files>facebook.cs|instagram.cs|chicken.cs</files>
+    <permssion>hello.cs</permssion>
+  </user>
+  <user name="john_smith">
+    <privelege>user</privelege>
+    <username>john</username>
+    <password>123456</password>
+    <files>hello.cs|dragon_ball.cs</files>
+    <permission>instagram.cs</permission>
+  </user>
+  <user name="jane_done">
+    <privelege>user</privelege>
+    <username>jane</username>
+    <password>123456</password>
+    <files>money.txt|code.txt</files>
+    <permission>hello.cs|instagram.cs|chicken.cs|instagram.cs|instagram.cs|money.txt</permission>
+  </user>
+</users>

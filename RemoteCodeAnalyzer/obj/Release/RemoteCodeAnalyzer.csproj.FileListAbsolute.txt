@@ -1,0 +1,7 @@
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\bin\Release\Authentication\user.xml
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\bin\Release\RemoteCodeAnalyzer.exe.config
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\bin\Release\RemoteCodeAnalyzer.exe
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\bin\Release\RemoteCodeAnalyzer.pdb
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Release\RemoteCodeAnalyzer.csprojResolveAssemblyReference.cache
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Release\RemoteCodeAnalyzer.exe
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzer\obj\Release\RemoteCodeAnalyzer.pdb

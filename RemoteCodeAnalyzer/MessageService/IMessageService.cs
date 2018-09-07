@@ -1,4 +1,22 @@
-﻿using RemoteCodeAnalyzer;
+﻿///////////////////////////////////////////////////////////////////////
+///  IMessageService.cs -                                           ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+///                                                                 ///
+/// IMessageService                                                 ///
+///     This contains all the operation definitions that needs to   ///
+///     be implemented by MessageService Class.                     ///
+///                                                                 ///
+/// FileTransferMessage                                             ///
+///     This repersents the object file for upload.                 ///
+///////////////////////////////////////////////////////////////////////
+
+using RemoteCodeAnalyzer;
 using System;
 using System.Collections;
 using System.Collections.Generic;

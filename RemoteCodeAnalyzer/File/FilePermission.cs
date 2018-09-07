@@ -2,6 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+///////////////////////////////////////////////////////////////////////
+///  FilePermission.cs -                                            ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+/// Method: grantFilePermission()                                   ///
+///                                                                 ///
+/// The method contains the logic to grant permission to other      ///
+/// users to access other user's files.                             ///
+///////////////////////////////////////////////////////////////////////
+
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;

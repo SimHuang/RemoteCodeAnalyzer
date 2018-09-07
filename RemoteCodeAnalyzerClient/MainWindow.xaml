@@ -50,7 +50,7 @@
                     <Label Content="Input File:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.152,-0.113" Width="80"/>
                     <Button Content="Download File" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="712" Click="Download_File"/>
                     <Button Content="Upload File" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top" Width="712" Click="Upload_File"/>
-                    <Label Content="Enter a correct filename for upload/download:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.372,0.17" Width="712"/>
+                    <Label Name="upDown_label" Content="Enter a correct filename for upload/download:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.372,0.17" Width="712"/>
                 </Grid>
             </TabItem>
             <TabItem Name="Admin" Header="Admin">

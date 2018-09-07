@@ -1,4 +1,18 @@
-﻿using MessageService;
+﻿///////////////////////////////////////////////////////////////////////
+///  MainWindow.xaml.cs -                                           ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+///                                                                 ///
+/// This file handles for the client side logic for the             ///
+/// MainWindow.xaml. All client event hadlers is stored here.       ///
+///////////////////////////////////////////////////////////////////////
+
+using MessageService;
 using RemoteCodeAnalyzer;
 using System;
 using System.Collections;
@@ -279,7 +293,13 @@ namespace RemoteCodeAnalyzerClient
                 msg.filename = filename;
                 msg.transferStream = inputStream;
                 channel.uploadFile(msg);
+                FileActionLabel.Content = "File " + filename + " uploaded.";
             }
+        }
+
+        private void DirectoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //not used yet
         }
     }
 }

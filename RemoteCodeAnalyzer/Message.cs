@@ -1,4 +1,19 @@
-﻿using System;
+﻿///////////////////////////////////////////////////////////////////////
+///  Message.cs -                                           ///
+///                                                                 ///
+///  Language:     Visual C#                                        ///
+///  Platform:     Windows 10                                       ///
+///  Application:  Remote Code Analyzer                             ///
+///  Author:       Simon Huang shuang43@syr.edu                     ///
+///////////////////////////////////////////////////////////////////////
+/// Note:                                                           ///
+///                                                                 ///
+/// This contains the message class along with all of it's          ///
+/// properties. The Message object is used to send objects to the   ///
+/// server.                                                         ///
+///////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
