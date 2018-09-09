@@ -39,7 +39,7 @@ namespace MessageService
         string getMessage();
 
         [OperationContract]
-        bool authenticateUser(Message message);
+        string authenticateUser(Message message);
 
         [OperationContract]
         Stream downloadFile(string filename);
@@ -52,6 +52,9 @@ namespace MessageService
 
         [OperationContract]
         string grantFilePermission(Message message);
+
+        [OperationContract]
+        string createNewUser(Message message);
     }
 
     [MessageContract]

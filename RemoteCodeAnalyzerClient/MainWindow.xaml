@@ -53,8 +53,21 @@
                     <Label Name="upDown_label" Content="Enter a correct filename for upload/download:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.372,0.17" Width="712"/>
                 </Grid>
             </TabItem>
-            <TabItem Name="Admin" Header="Admin">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Name="AdminTab" Header="Admin">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Create New User" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="215"/>
+                    <TextBox Name="NewUserName" HorizontalAlignment="Left" Height="23" Margin="105,41,0,0" TextWrapping="Wrap" Text="New Username" VerticalAlignment="Top" Width="523"/>
+                    <Label  Content="Username" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Label  Content="Password" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.004,0.152" Width="90"/>
+                    <TextBox Name="NewUserPassword" HorizontalAlignment="Left" Height="23" Margin="105,76,0,0" TextWrapping="Wrap" Text="New Password" VerticalAlignment="Top" Width="523"/>
+                    <ComboBox Name="NewUsePrivelege" HorizontalAlignment="Left" Margin="105,114,0,0" VerticalAlignment="Top" Width="523">
+                        <ComboBoxItem Content="user"/>
+                        <ComboBoxItem Content="admin"/>
+                    </ComboBox>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Button Content="Create New User" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="712" Click="New_User_Handler"/>
+                    <Label Name="NewUserMessage" HorizontalAlignment="Left" Margin="10,419,0,0" VerticalAlignment="Top" Width="712"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

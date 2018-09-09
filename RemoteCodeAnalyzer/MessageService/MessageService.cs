@@ -54,7 +54,7 @@ namespace MessageService
         /*
          * Request to authenticate a user
          */
-        public bool authenticateUser(Message message)
+        public string authenticateUser(Message message)
         {
             Console.Write(message.dateTime + " " + message.author + " - " + message.messageType + "\n");
             return Authentication.authenticateUser(message);
@@ -111,6 +111,14 @@ namespace MessageService
         public string grantFilePermission(Message message)
         {
             return FilePermission.grantFilePermission(message);
+        }
+
+        /*
+         * Create new user and add it to user.xml
+         */
+        public string createNewUser(Message message)
+        {
+            return Authentication.createNewUser(message);
         }
     }
 }

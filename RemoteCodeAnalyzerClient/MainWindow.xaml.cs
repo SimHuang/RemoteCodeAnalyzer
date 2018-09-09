@@ -14,6 +14,7 @@
 
 using MessageService;
 using RemoteCodeAnalyzer;
+using RemoteCodeAnalyzer.Authentication;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace RemoteCodeAnalyzerClient
 
         string authenticatedUser = null;
         Boolean isAuthenticated = false;
+        Boolean isAdmin = false;
 
         public MainWindow()
         {
@@ -75,7 +77,7 @@ namespace RemoteCodeAnalyzerClient
             UploadTab.IsEnabled = false;
             LoginTab.IsEnabled = false;
             FileTab.IsEnabled = false;
-            Admin.IsEnabled = false;
+            AdminTab.IsEnabled = false;
         }
 
         /**
@@ -149,8 +151,9 @@ namespace RemoteCodeAnalyzerClient
                             "</body>";
 
                 //messageLabel.Content = channel.getMessage();
-                bool isValidUser = channel.authenticateUser(msg);
-                if(isValidUser)
+                string userAuthResponse = channel.authenticateUser(msg);
+                if(userAuthResponse.Equals(Authentication.USER_AUTHENTICATED) || 
+                    userAuthResponse.Equals(Authentication.ADMIN_AUTHENTICATED))
                 {
                     //enable all tab controls to allow user access
                     messageLabel.Content = "User Successfully Authenticated!";
@@ -164,6 +167,13 @@ namespace RemoteCodeAnalyzerClient
 
                     //initialize some ui data for user
                     initializeFilesTab();
+
+                    //enable admin tab 
+                    if(userAuthResponse.Equals(Authentication.ADMIN_AUTHENTICATED))
+                    {
+                        AdminTab.IsEnabled = true;
+                        isAdmin = true;
+                    }
 
                 } else
                 {
@@ -300,6 +310,28 @@ namespace RemoteCodeAnalyzerClient
         private void DirectoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //not used yet
+        }
+
+        /*
+         * Click Handler for when user clicks create new user
+         */
+        private void New_User_Handler(object sender, RoutedEventArgs e)
+        {
+            string newUserName = NewUserName.Text;
+            string newPassword = NewUserPassword.Text;
+            string newPrivelege = NewUsePrivelege.Text;
+
+            //call the new user service
+            Message msg = new Message();
+            msg.sourceAddress = address;
+            msg.destinationAddress = address;
+            msg.messageType = "NEW_USER_CREATION";
+            msg.author = authenticatedUser;
+            msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+            msg.body = newUserName + "|" + newPassword + "|" + newPrivelege;
+
+            string response = channel.createNewUser(msg);
+            NewUserMessage.Content = response;
         }
     }
 }

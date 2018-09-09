@@ -22,12 +22,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace RemoteCodeAnalyzer.Authentication
 {
     public class Authentication
     {
-        public static bool authenticateUser(Message message)
+        public static string USER_AUTHENTICATED = "user_authenticated";
+        public static string ADMIN_AUTHENTICATED = "admin_authenticated";
+        public static string FAILED_AUTHENTICATION = "failed_authentication";
+
+        //method to authenticate user
+        public static string authenticateUser(Message message)
         {
             //parse message object for username and password
             string argumentUserName = message.author;
@@ -48,29 +54,40 @@ namespace RemoteCodeAnalyzer.Authentication
                     string password = node["password"].InnerText;
                     if(password.Equals(messagePassword))
                     {
-                        return true;
+                        //check if user is admin
+                        string privelege = node["privelege"].InnerText;
+                        if(privelege.Equals("admin"))
+                        {
+                            return ADMIN_AUTHENTICATED;
+                        }
+                        return USER_AUTHENTICATED;
                     }
                 }
             }
 
-            //Dictionary<string, string> users = new Dictionary<string, string>();
-            //users.Add("samsmith", "123456");
-            //users.Add("john", "123456");
-            //users.Add("jane", "123456");
+            return FAILED_AUTHENTICATION;
+        }
 
-            //if (users.ContainsKey(argumentUserName))
-            //{
-            //    string valuePassword = "";
-            //    if(users.TryGetValue(argumentUserName, out valuePassword))
-            //    {
-            //        if(valuePassword.Equals(messagePassword))
-            //        {
-            //            return true;
-            //        }
-            //    }
-            //}
+        //method to create new user
+        public static string createNewUser(Message message)
+        {
+            string messageBody = message.body;
+            string[] parsedBody = messageBody.Split('|');
+            string username = parsedBody[0];
+            string password = parsedBody[1];
+            string privelege = parsedBody[2];
 
-            return false;
+            XDocument doc = XDocument.Load("../../Authentication/user.xml");
+            XElement users = doc.Element("users");
+            users.Add(new XElement("user",
+                       new XElement("privelege", privelege),
+                       new XElement("username", username),
+                       new XElement("password", password),
+                       new XElement("files", ""),
+                       new XElement("permission", "")));
+            doc.Save("../../Authentication/user.xml");
+
+            return "New User Successfuly Created!";
         }
     }
 }
