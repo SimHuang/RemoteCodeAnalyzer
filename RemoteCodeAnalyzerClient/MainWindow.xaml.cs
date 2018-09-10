@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -46,6 +47,8 @@ namespace RemoteCodeAnalyzerClient
         string authenticatedUser = null;
         Boolean isAuthenticated = false;
         Boolean isAdmin = false;
+
+        string fileRetrievePath = "";
 
         public MainWindow()
         {
@@ -109,17 +112,60 @@ namespace RemoteCodeAnalyzerClient
          */ 
         public void initializeFilesTab()
         {
-            FileMessageLabel.Content = "";
-            ArrayList files = channel.retrieveFiles(authenticatedUser);
+        //    FileMessageLabel.Content = "";
+        //    ArrayList files = channel.retrieveFiles(authenticatedUser);
 
-            List<File> fileList = new List<File>();
-            foreach(String file in files)
-            {
-                fileList.Add(new File() { name = file, value = file });
-            }
+        //    List<File> fileList = new List<File>();
+        //    foreach(String file in files)
+        //    {
+        //        fileList.Add(new File() { name = file, value = file });
+        //    }
            
-            //display files to user
-            FileDropdown.ItemsSource = files;
+        //    //display files to user
+        //    FileDropdown.ItemsSource = files;
+        }
+
+        /*
+         * Detect When a tab is clicked, do things accordingly
+         */
+        private void Tab_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            string tabItem = ((sender as TabControl).SelectedItem as TabItem).Header as string;
+            switch(tabItem)
+            {
+                case "Login":       //login tab
+                    break;
+
+                case "Directories": //directorytab
+                    //retrieve all files for the current user
+                    //proper name is enter search for the directory
+                    fileRetrievePath = authenticatedUser;
+
+                    Message msg = new Message();
+                    msg.sourceAddress = address;
+                    msg.destinationAddress = address;
+                    msg.messageType = "FILE_RETRIEVE";
+                    msg.author = authenticatedUser;
+                    msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                    msg.body = authenticatedUser;
+
+                    ArrayList files = channel.retrieveFiles(msg);
+                    DirectoryList.ItemsSource = files;
+                    break;
+
+                case "Files":       //files tab
+                    break;
+
+                case "Up/Down":   //upload tab
+                    break;
+
+                case "Admin":    //admin tab
+                    break;
+
+                default:
+                    DirectoryMessage.Content = "it came in here nope";
+                    return;
+            }
         }
 
         /*
@@ -166,7 +212,7 @@ namespace RemoteCodeAnalyzerClient
                     LoginTab.IsEnabled = true;
 
                     //initialize some ui data for user
-                    initializeFilesTab();
+                    //initializeFilesTab();
 
                     //enable admin tab 
                     if(userAuthResponse.Equals(Authentication.ADMIN_AUTHENTICATED))
@@ -199,32 +245,32 @@ namespace RemoteCodeAnalyzerClient
          * Event handler for directory tab when use wants to retrieve a directory by clicking the 
          * retrieve button
          */
-        private void RetrieveButton_Click(object sender, RoutedEventArgs e)
-        {
-            string directoryName = DirectoryNameBox.Text;
-            if(directoryName.Equals("") || 
-                directoryName.Equals(" ") ||
-                directoryName.Equals("Enter a Valid Directory Name")) {
+        //private void RetrieveButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string directoryName = DirectoryNameBox.Text;
+        //    if(directoryName.Equals("") || 
+        //        directoryName.Equals(" ") ||
+        //        directoryName.Equals("Enter a Valid Directory Name")) {
 
-                string errorMessage = "Please enter a valid directory name!";
-                DirectoryNameBox.Text = "";
-                DirectoryMessage.Content = errorMessage;
-            }
+        //        string errorMessage = "Please enter a valid directory name!";
+        //        DirectoryNameBox.Text = "";
+        //        DirectoryMessage.Content = errorMessage;
+        //    }
 
-            //proper name is enter search for the directory
-            Message msg = new Message();
-            msg.sourceAddress = address;
-            msg.destinationAddress = address;
-            msg.messageType = "FILE_RETRIEVE";
-            msg.author = usernameTextbox.Text;
-            msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
-            msg.body = DirectoryNameBox.Text;
+        //    //proper name is enter search for the directory
+        //    Message msg = new Message();
+        //    msg.sourceAddress = address;
+        //    msg.destinationAddress = address;
+        //    msg.messageType = "FILE_RETRIEVE";
+        //    msg.author = usernameTextbox.Text;
+        //    msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+        //    msg.body = DirectoryNameBox.Text;
 
-            ArrayList files = channel.retrieveFiles(msg.body);
+        //    ArrayList files = channel.retrieveFiles(msg);
 
-            //display files to user
-            DirectoryList.ItemsSource = files;
-        }
+        //    //display files to user
+        //    DirectoryList.ItemsSource = files;
+        //}
 
         /*
          * Grant file permission to a specific user
@@ -302,14 +348,53 @@ namespace RemoteCodeAnalyzerClient
                 FileTransferMessage msg = new FileTransferMessage();
                 msg.filename = filename;
                 msg.transferStream = inputStream;
+                msg.uploadAsDirectory = false;
+                msg.username = authenticatedUser;
+
+                if(UploadCheckBox.IsChecked ?? false)
+                {
+                    FileActionLabel.Content = "it did the check";
+                    msg.uploadAsDirectory = true;
+                }
+
                 channel.uploadFile(msg);
                 FileActionLabel.Content = "File " + filename + " uploaded.";
             }
         }
 
+        /*
+         * Detect when a different list item is selected in list box under directories tab
+         */
         private void DirectoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //not used yet
+        }
+
+        private void ListItem_DoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            string selection = DirectoryList.SelectedItem.ToString();
+            if(selection != null)
+            {
+                //if directory is selected
+                if(!selection.Contains("."))
+                {
+                    
+                    fileRetrievePath += "\\" + selection;
+                    Message msg = new Message();
+                    msg.sourceAddress = address;
+                    msg.destinationAddress = address;
+                    msg.messageType = "FILE_RETRIEVE";
+                    msg.author = authenticatedUser;
+                    msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                    msg.body = fileRetrievePath;
+                    DirectoryMessage.Content = fileRetrievePath;
+
+                    ArrayList files = channel.retrieveFiles(msg);
+                    DirectoryMessage.Content = files.Count;
+                    DirectoryList.Items.Clear();
+                    DirectoryList.ItemsSource = files;
+                }
+            }
         }
 
         /*
@@ -333,5 +418,7 @@ namespace RemoteCodeAnalyzerClient
             string response = channel.createNewUser(msg);
             NewUserMessage.Content = response;
         }
+
+        
     }
 }

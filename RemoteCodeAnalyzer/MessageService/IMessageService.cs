@@ -48,7 +48,7 @@ namespace MessageService
         void uploadFile(FileTransferMessage msg);
 
         [OperationContract]
-        ArrayList retrieveFiles(string directory);
+        ArrayList retrieveFiles(Message messgae);
 
         [OperationContract]
         string grantFilePermission(Message message);
@@ -62,6 +62,12 @@ namespace MessageService
     {
         [MessageHeader(MustUnderstand = true)]
         public string filename { get; set; }
+
+        [MessageHeader(MustUnderstand =true)]
+        public string username { get; set; }
+
+        [MessageHeader(MustUnderstand = true)]
+        public bool uploadAsDirectory { get; set; }
 
         [MessageBodyMember(Order = 1)]
         public Stream transferStream { get; set; }

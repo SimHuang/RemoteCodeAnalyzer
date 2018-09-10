@@ -84,24 +84,25 @@ namespace MessageService
           The directory name is base on the username. We search for the 
           node with a matching name and get all files.
          */
-        public ArrayList retrieveFiles(string directory)
+        public ArrayList retrieveFiles(Message message)
         {
-            ArrayList fileList = new ArrayList();
-            XmlDocument doc = new XmlDocument();
-            doc.Load("../../Authentication/user.xml");
-            
-            foreach(XmlNode node in doc.DocumentElement)
-            {
-                string actualDirectoryName = node["username"].InnerText;
-                if(actualDirectoryName.Equals(directory))
-                {
-                    string[] files = node["files"].InnerText.ToString().Split('|');
-                    fileList.AddRange(files);
-                    break;
-                }
-            }
+            //ArrayList fileList = new ArrayList();
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load("../../Authentication/user.xml");
 
-            return fileList;
+            //foreach(XmlNode node in doc.DocumentElement)
+            //{
+            //    string actualDirectoryName = node["username"].InnerText;
+            //    if(actualDirectoryName.Equals(directory))
+            //    {
+            //        string[] files = node["files"].InnerText.ToString().Split('|');
+            //        fileList.AddRange(files);
+            //        break;
+            //    }
+            //}
+
+            //return fileList;
+            return FilePermission.retrieveFiles(message);
         }
 
         /*

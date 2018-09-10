@@ -56,10 +56,21 @@ namespace RemoteCodeAnalyzer.File
             Console.Write("UPLOAD FILE");
             HRTimer.HiResTimer hrt = new HRTimer.HiResTimer();
             hrt.Start();
+            //savePath += "\\" + msg.username;
+            string uploadPath = "";
+            if(msg.uploadAsDirectory)
+            {
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(savePath + "\\" + msg.username);
+                int count = dir.GetDirectories().Length + 1;
+                uploadPath = savePath + "\\" + msg.username + "\\" + count.ToString();
+            }else
+            {
+                uploadPath = savePath + "\\" + msg.username;
+            }
             string filename = msg.filename;
-            string rfilename = Path.Combine(savePath, filename);
-            if (!Directory.Exists(savePath))
-                Directory.CreateDirectory(savePath);
+            string rfilename = Path.Combine(uploadPath, filename);
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
             using (var outputStream = new FileStream(rfilename, FileMode.Create))
             {
                 while (true)

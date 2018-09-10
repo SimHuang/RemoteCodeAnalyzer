@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,9 @@ using System.Linq;
 /// Method: grantFilePermission()                                   ///
 ///                                                                 ///
 /// The method contains the logic to grant permission to other      ///
-/// users to access other user's files.                             ///
+/// users to access other user's files. Itso allows the user to     ///
+/// access their own file directory and admin can access all        ///
+/// directories                                                     ///
 ///////////////////////////////////////////////////////////////////////
 
 using System.Text;
@@ -25,6 +28,9 @@ namespace RemoteCodeAnalyzer.File
 {
     class FilePermission
     {
+        /*
+         * File Owner can grant file/directory permission to another user
+         */
         public static string grantFilePermission(Message message)
         {
             Console.Write(message.dateTime + " " + message.author + " " + message.messageType + "\n");
@@ -81,6 +87,49 @@ namespace RemoteCodeAnalyzer.File
             }
             return "Error granting file permission";
 
+        }
+
+        /*
+         * Retrieve the files and directories of user
+         */
+        public static ArrayList retrieveFiles(Message message)
+        {
+            string author = message.author;
+            string directoryPath = message.body;
+            string pathToRetrieve = "..\\..\\FileStorage\\" + directoryPath;
+            ArrayList fileList = new ArrayList();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("../../Authentication/user.xml");
+
+            //get all files and directories under the specified paths
+            //DirectoryInfo directoryFileInfo = new DirectoryInfo(pathToRetrieve);
+            string[] filePath = Directory.GetFiles(pathToRetrieve);
+            string[] directoryPaths = Directory.GetDirectories(pathToRetrieve);
+
+            //get all directory names
+            foreach (string dir in directoryPaths)
+            {
+                fileList.Add(Path.GetFileName(dir));
+            }
+
+            //get all file names
+            foreach (string file in filePath)
+            {
+                fileList.Add(Path.GetFileName(file));
+            }
+         
+            //foreach (XmlNode node in doc.DocumentElement)
+            //{
+            //    string actualDirectoryName = node["username"].InnerText;
+            //    if (actualDirectoryName.Equals(directory))
+            //    {
+            //        string[] files = node["files"].InnerText.ToString().Split('|');
+            //        fileList.AddRange(files);
+            //        break;
+            //    }
+            //}
+
+            return fileList;
         }
     }
 }

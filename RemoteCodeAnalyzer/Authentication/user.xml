@@ -22,7 +22,7 @@
     <permission>hello.cs|instagram.cs|chicken.cs|instagram.cs|instagram.cs|money.txt|instagram.cs</permission>
   </user>
   <user>
-    <privelege>user</privelege>
+    <privelege>admin</privelege>
     <username>goku</username>
     <password>123456</password>
     <files></files>

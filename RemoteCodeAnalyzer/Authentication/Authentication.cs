@@ -87,6 +87,9 @@ namespace RemoteCodeAnalyzer.Authentication
                        new XElement("permission", "")));
             doc.Save("../../Authentication/user.xml");
 
+            //create folder for user
+            System.IO.Directory.CreateDirectory("../../FileStorage/" + username);
+
             return "New User Successfuly Created!";
         }
     }
