@@ -20,8 +20,8 @@
             </TabItem>
             <TabItem Name="DirectoryTab" Header="Directories">
                 <Grid Background="#FFFFFF">
-                    <ListBox Name="DirectoryList" HorizontalAlignment="Left" Height="266" Margin="10,36,0,0" VerticalAlignment="Top" Width="451" MouseDoubleClick="ListItem_DoubleClicked" SelectionChanged="DirectoryList_SelectionChanged"/>
-                    <Label Name="DirectoryMessage" Content="Label" HorizontalAlignment="Left" Margin="7,407,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.331,-0.409" Width="454"/>
+                    <ListBox Name="DirectoryList" HorizontalAlignment="Left" Height="266" Margin="10,36,0,0" VerticalAlignment="Top" Width="451" MouseDoubleClick="ListItem_DoubleClicked"/>
+                    <Label Name="DirectoryMessage" Content="Label" HorizontalAlignment="Left" Margin="10,317,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.331,-0.409" Width="454" Height="128"/>
                     <Label Content="Your Files:" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Width="106"/>
                 </Grid>
             </TabItem>

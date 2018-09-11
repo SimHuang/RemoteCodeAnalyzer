@@ -94,41 +94,52 @@ namespace RemoteCodeAnalyzer.File
          */
         public static ArrayList retrieveFiles(Message message)
         {
-            string author = message.author;
-            string directoryPath = message.body;
-            string pathToRetrieve = "..\\..\\FileStorage\\" + directoryPath;
             ArrayList fileList = new ArrayList();
-            XmlDocument doc = new XmlDocument();
-            doc.Load("../../Authentication/user.xml");
-
-            //get all files and directories under the specified paths
-            //DirectoryInfo directoryFileInfo = new DirectoryInfo(pathToRetrieve);
-            string[] filePath = Directory.GetFiles(pathToRetrieve);
-            string[] directoryPaths = Directory.GetDirectories(pathToRetrieve);
-
-            //get all directory names
-            foreach (string dir in directoryPaths)
+            try
             {
-                fileList.Add(Path.GetFileName(dir));
-            }
+                string author = message.author;
+                string directoryPath = message.body;
+                string pathToRetrieve = "..\\..\\FileStorage\\" + directoryPath;
+                Console.WriteLine("Retrieving Files at: " + pathToRetrieve);
+                
+                XmlDocument doc = new XmlDocument();
+                doc.Load("../../Authentication/user.xml");
 
-            //get all file names
-            foreach (string file in filePath)
+                //get all files and directories under the specified paths
+                //DirectoryInfo directoryFileInfo = new DirectoryInfo(pathToRetrieve);
+                string[] filePath = Directory.GetFiles(pathToRetrieve);
+                string[] directoryPaths = Directory.GetDirectories(pathToRetrieve);
+
+                //get all directory names
+                foreach (string dir in directoryPaths)
+                {
+                    fileList.Add(Path.GetFileName(dir));
+                }
+
+                //get all file names
+                foreach (string file in filePath)
+                {
+                    fileList.Add(Path.GetFileName(file));
+                }
+
+                Console.WriteLine("it came here");
+
+                //foreach (XmlNode node in doc.DocumentElement)
+                //{
+                //    string actualDirectoryName = node["username"].InnerText;
+                //    if (actualDirectoryName.Equals(directory))
+                //    {
+                //        string[] files = node["files"].InnerText.ToString().Split('|');
+                //        fileList.AddRange(files);
+                //        break;
+                //    }
+                //}
+            }
+            catch (Exception ex)
             {
-                fileList.Add(Path.GetFileName(file));
+                Console.Write(ex.ToString());
+                return fileList;
             }
-         
-            //foreach (XmlNode node in doc.DocumentElement)
-            //{
-            //    string actualDirectoryName = node["username"].InnerText;
-            //    if (actualDirectoryName.Equals(directory))
-            //    {
-            //        string[] files = node["files"].InnerText.ToString().Split('|');
-            //        fileList.AddRange(files);
-            //        break;
-            //    }
-            //}
-
             return fileList;
         }
     }

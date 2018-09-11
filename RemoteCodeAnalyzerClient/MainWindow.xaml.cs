@@ -43,7 +43,7 @@ namespace RemoteCodeAnalyzerClient
     {
         string address = "http://localhost:8080/MessageService";
         IMessageService channel;
-
+        string currentTab = "";
         string authenticatedUser = null;
         Boolean isAuthenticated = false;
         Boolean isAdmin = false;
@@ -134,32 +134,50 @@ namespace RemoteCodeAnalyzerClient
             switch(tabItem)
             {
                 case "Login":       //login tab
+                    currentTab = "Login";
                     break;
 
                 case "Directories": //directorytab
                     //retrieve all files for the current user
                     //proper name is enter search for the directory
-                    fileRetrievePath = authenticatedUser;
+                    if(!currentTab.Equals("Directories"))
+                    {
+                        //Error: this detects single click on listbox as well
+                        
+                        currentTab = "Directories";
 
-                    Message msg = new Message();
-                    msg.sourceAddress = address;
-                    msg.destinationAddress = address;
-                    msg.messageType = "FILE_RETRIEVE";
-                    msg.author = authenticatedUser;
-                    msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
-                    msg.body = authenticatedUser;
+                        Message msg = new Message();
+                        msg.sourceAddress = address;
+                        msg.destinationAddress = address;
+                        msg.messageType = "FILE_RETRIEVE";
+                        msg.author = authenticatedUser;
+                        msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
 
-                    ArrayList files = channel.retrieveFiles(msg);
-                    DirectoryList.ItemsSource = files;
+                        //return the root directory or specific user?
+                        if(isAdmin)
+                        {
+                            msg.body = "";
+                            fileRetrievePath = "";
+                        }else
+                        {
+                            fileRetrievePath = authenticatedUser;
+                            msg.body = isAdmin ? "" : authenticatedUser;
+                        }
+                        ArrayList files = channel.retrieveFiles(msg);
+                        DirectoryList.ItemsSource = files;
+                    }
                     break;
 
                 case "Files":       //files tab
+                    currentTab = "Files";
                     break;
 
                 case "Up/Down":   //upload tab
+                    currentTab = "Up/Down";
                     break;
 
                 case "Admin":    //admin tab
+                    currentTab = "Admin";
                     break;
 
                 default:
@@ -362,13 +380,6 @@ namespace RemoteCodeAnalyzerClient
             }
         }
 
-        /*
-         * Detect when a different list item is selected in list box under directories tab
-         */
-        private void DirectoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //not used yet
-        }
 
         private void ListItem_DoubleClicked(object sender, MouseButtonEventArgs e)
         {
@@ -378,21 +389,34 @@ namespace RemoteCodeAnalyzerClient
                 //if directory is selected
                 if(!selection.Contains("."))
                 {
-                    
-                    fileRetrievePath += "\\" + selection;
-                    Message msg = new Message();
-                    msg.sourceAddress = address;
-                    msg.destinationAddress = address;
-                    msg.messageType = "FILE_RETRIEVE";
-                    msg.author = authenticatedUser;
-                    msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
-                    msg.body = fileRetrievePath;
-                    DirectoryMessage.Content = fileRetrievePath;
+                    try
+                    {
+                        
+                        Message msg = new Message();
+                        msg.sourceAddress = address;
+                        msg.destinationAddress = address;
+                        msg.messageType = "FILE_RETRIEVE";
+                        msg.author = authenticatedUser;
+                        msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                        msg.body = fileRetrievePath + "\\" +selection;
 
-                    ArrayList files = channel.retrieveFiles(msg);
-                    DirectoryMessage.Content = files.Count;
-                    DirectoryList.Items.Clear();
-                    DirectoryList.ItemsSource = files;
+                        ArrayList files = channel.retrieveFiles(msg);
+                        if(files.Count == 0)
+                        {
+                            DirectoryMessage.Content = "Directory is Empty. Try Another Directory";
+                        }
+                        else
+                        {
+                            //DirectoryList.Items.Clear();
+                            DirectoryList.ItemsSource = null;
+                            DirectoryList.ItemsSource = files;
+                            fileRetrievePath += "\\" + selection;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DirectoryMessage.Content = ex.ToString();
+                    }
                 }
             }
         }
