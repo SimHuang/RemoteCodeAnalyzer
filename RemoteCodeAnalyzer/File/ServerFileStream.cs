@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RemoteCodeAnalyzer.File
 {
@@ -83,9 +84,20 @@ namespace RemoteCodeAnalyzer.File
                 }
             }
             hrt.Stop();
+            //addToFileMetaData(uploadPath, filename);
             Console.Write("\n  Received file \"{0}\"", filename);
 
             return "File successfully uploaded.";
+        }
+
+        /*
+         * Add The file to the file meta data xml to keep track of it. Traverse 
+         * the metadata file through upload path
+         */
+        private static void addToFileMetaData(string uploadPath, string filename)
+        {
+            XDocument doc = XDocument.Load("../../File/file_metaData.xml");
+            //XElement users = doc.Element()
         }
     }
 }

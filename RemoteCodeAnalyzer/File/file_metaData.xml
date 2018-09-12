@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Directory name="root">
+  <Directory name="goku">
+    <File name="instagram.cs"></File>
+    <File name="money.txt"></File>
+    <File name="upload_one.txt"></File>
+    <File name="upload_two.txt"></File>
+  </Directory>
+  <Directory name="jane">
+    <File name="dragon_ball.cs"></File>
+    <File name="facebook.cs"></File>
+  </Directory>
+  <Directory name="john">
+    <Directory name="1">
+      <File name="upload_one.txt"></File>
+    </Directory>
+    <Directory name="2">
+      <File name="upload_one.txt"></File>
+    </Directory>
+    <File name="instagram.cs"></File>
+    <File name="money.txt"></File>
+  </Directory>
+  <Directory name="samsmith">
+    <File name="chicken.cs"></File>
+  </Directory>
+</Directory>
