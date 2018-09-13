@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace RemoteCodeAnalyzer.File
 {
@@ -30,8 +31,9 @@ namespace RemoteCodeAnalyzer.File
     {
         /*
          * File Owner can grant file/directory permission to another user
+         * @Deprecated - this is rewritten below
          */
-        public static string grantFilePermission(Message message)
+        public static string grantFilePermissionOLD(Message message)
         {
             Console.Write(message.dateTime + " " + message.author + " " + message.messageType + "\n");
             if (message == null)
@@ -90,6 +92,36 @@ namespace RemoteCodeAnalyzer.File
         }
 
         /*
+         *This method allows user to grant file access permission to another user 
+         */ 
+        public static string grantFilePermission(Message message)
+        {
+            Console.Write(message.dateTime + " " + message.author + " " + message.messageType + "\n");
+            if (message == null)
+            {
+                Console.Write("Error: Null Message Object.");
+                return "Error granting file permission";
+            }
+
+            string currentUser = message.author;
+            string[] body = message.body.Split('|');
+
+            string file = body[0]; //this contains the path to the directory/file
+            string grantUser = body[1];
+
+            XDocument doc = XDocument.Load("../../File/file_metaData.xml");
+
+            XElement grantUserDir = doc.Element("Directories")
+                            .Elements("Directory")
+                            .Where(x => x.Attribute("name").Value.Equals(grantUser)).FirstOrDefault();
+
+            grantUserDir.Add(new XElement("Permission", new XAttribute("owner", currentUser), file));
+            doc.Save("../../File/file_metaData.xml");
+
+            return "File Shared Successfully";
+        }
+
+        /*
          * Retrieve the files and directories of user
          */
         public static ArrayList retrieveFiles(Message message)
@@ -140,6 +172,30 @@ namespace RemoteCodeAnalyzer.File
                 Console.Write(ex.ToString());
                 return fileList;
             }
+            return fileList;
+        }
+
+        /*
+         * Service to retrieve list of shared files for display
+         */ 
+        public static ArrayList retrieveSharedFiles(Message message)
+        {
+            string currentUser = message.author;
+            ArrayList fileList = new ArrayList();
+
+            XDocument doc = XDocument.Load("../../File/file_metaData.xml");
+
+            IEnumerable<XElement> userPermissionFiles = doc.Element("Directories")
+                            .Elements("Directory")
+                            .Where(x => x.Attribute("name").Value.Equals(currentUser)).FirstOrDefault()
+                            .Elements("Permission");
+                
+            foreach(XElement el in userPermissionFiles)
+            {
+                fileList.Add(el.Value.ToString());
+                Console.Write(el.Value);
+            }
+
             return fileList;
         }
     }

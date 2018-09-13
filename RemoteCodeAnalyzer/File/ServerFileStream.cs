@@ -59,10 +59,11 @@ namespace RemoteCodeAnalyzer.File
             hrt.Start();
             //savePath += "\\" + msg.username;
             string uploadPath = "";
+            int count = -1;
             if(msg.uploadAsDirectory)
             {
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(savePath + "\\" + msg.username);
-                int count = dir.GetDirectories().Length + 1;
+                count = dir.GetDirectories().Length + 1;
                 uploadPath = savePath + "\\" + msg.username + "\\" + count.ToString();
             }else
             {
@@ -84,7 +85,7 @@ namespace RemoteCodeAnalyzer.File
                 }
             }
             hrt.Stop();
-            //addToFileMetaData(uploadPath, filename);
+            addToFileMetaData(msg.username, filename, count);
             Console.Write("\n  Received file \"{0}\"", filename);
 
             return "File successfully uploaded.";
@@ -94,10 +95,24 @@ namespace RemoteCodeAnalyzer.File
          * Add The file to the file meta data xml to keep track of it. Traverse 
          * the metadata file through upload path
          */
-        private static void addToFileMetaData(string uploadPath, string filename)
+        private static void addToFileMetaData(string username, string filename, int isDirectory)
         {
             XDocument doc = XDocument.Load("../../File/file_metaData.xml");
-            //XElement users = doc.Element()
+
+            XElement userDir = doc.Element("Directories")
+                            .Elements("Directory")
+                            .Where(x => x.Attribute("name").Value.Equals(username)).FirstOrDefault();
+
+            if(isDirectory > 0)
+            {
+                userDir.AddFirst(new XElement("Directory", new XAttribute("name", isDirectory.ToString()),
+                                new XElement("File", new XAttribute("name", filename), string.Empty)));
+            }
+            else
+            {
+                userDir.Add(new XElement("File", new XAttribute("name", filename), string.Empty));
+            }
+            doc.Save("../../File/file_metaData.xml");
         }
     }
 }

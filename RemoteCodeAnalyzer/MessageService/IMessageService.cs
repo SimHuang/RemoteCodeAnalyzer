@@ -51,6 +51,9 @@ namespace MessageService
         ArrayList retrieveFiles(Message messgae);
 
         [OperationContract]
+        ArrayList retrieveSharedFiles(Message message);
+
+        [OperationContract]
         string grantFilePermission(Message message);
 
         [OperationContract]

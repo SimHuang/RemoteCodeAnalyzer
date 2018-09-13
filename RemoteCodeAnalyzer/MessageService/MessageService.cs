@@ -105,6 +105,11 @@ namespace MessageService
             return FilePermission.retrieveFiles(message);
         }
 
+        public ArrayList retrieveSharedFiles(Message message)
+        {
+            return FilePermission.retrieveSharedFiles(message);
+        } 
+
         /*
          * compare the file string in the message object to the author. If the author matches 
          * the file owner, then grant permission to the user of their choice.

@@ -164,6 +164,13 @@ namespace RemoteCodeAnalyzerClient
                             msg.body = isAdmin ? "" : authenticatedUser;
                         }
                         ArrayList files = channel.retrieveFiles(msg);
+                        ArrayList sharedFiles = channel.retrieveSharedFiles(msg);
+
+                        foreach(string file in sharedFiles)
+                        {
+                            string fileowner = file.Split('\\')[0];
+                            files.Add(file + " (" + fileowner + ")");
+                        }
                         DirectoryList.ItemsSource = files;
                     }
                     break;
@@ -398,7 +405,16 @@ namespace RemoteCodeAnalyzerClient
                         msg.messageType = "FILE_RETRIEVE";
                         msg.author = authenticatedUser;
                         msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
-                        msg.body = fileRetrievePath + "\\" +selection;
+
+                        if(selection.Contains("(") && selection.Contains("\\"))
+                        {
+                            msg.body = selection.Split('(')[0];
+                        }
+                        else
+                        {
+                            msg.body = fileRetrievePath + "\\" + selection;
+                        }
+                        
 
                         ArrayList files = channel.retrieveFiles(msg);
                         if(files.Count == 0)
@@ -443,6 +459,25 @@ namespace RemoteCodeAnalyzerClient
             NewUserMessage.Content = response;
         }
 
-        
+        /*This handles the condition when user grants file permission in file tab*/
+        private void GrantPermissionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string fileToShare =  DirectoryList.SelectedItem.ToString();
+            string shareToUser = UserToShareText.Text;
+
+            if(fileToShare != null && shareToUser != null)
+            {
+                Message msg = new Message();
+                msg.sourceAddress = address;
+                msg.destinationAddress = address;
+                msg.messageType = "GRANT_FILE_PERMISSION";
+                msg.author = authenticatedUser;
+                msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                msg.body = fileRetrievePath + "\\" + fileToShare + "|" + shareToUser;
+
+                string response = channel.grantFilePermission(msg);
+                DirectoryMessage.Content = response;
+            }
+        }
     }
 }
