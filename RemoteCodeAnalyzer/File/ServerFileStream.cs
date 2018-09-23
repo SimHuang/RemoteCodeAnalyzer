@@ -88,6 +88,10 @@ namespace RemoteCodeAnalyzer.File
             addToFileMetaData(msg.username, filename, count);
             Console.Write("\n  Received file \"{0}\"", filename);
 
+            string[] files = new string[10];
+            files[0] = rfilename;
+            calculateMaintainibility(files);
+
             return "File successfully uploaded.";
         }
 
@@ -113,6 +117,12 @@ namespace RemoteCodeAnalyzer.File
                 userDir.Add(new XElement("File", new XAttribute("name", filename), string.Empty));
             }
             doc.Save("../../File/file_metaData.xml");
+        }
+
+        //helper method to calculate maintainibility index
+        public static void calculateMaintainibility(string[] filePaths)
+        {
+            //TestParser.calculateMaintainibilityIndex(filePaths);
         }
     }
 }

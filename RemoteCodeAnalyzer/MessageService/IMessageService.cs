@@ -58,6 +58,14 @@ namespace MessageService
 
         [OperationContract]
         string createNewUser(Message message);
+
+        [OperationContract]
+        string addComment(Message message);
+
+        [OperationContract]
+        ArrayList getComment(Message message);
+
+        //void calculateMaintainibility(string[] filePath);
     }
 
     [MessageContract]

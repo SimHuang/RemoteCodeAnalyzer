@@ -140,7 +140,8 @@ namespace RemoteCodeAnalyzerClient
                 case "Directories": //directorytab
                     //retrieve all files for the current user
                     //proper name is enter search for the directory
-                    if(!currentTab.Equals("Directories"))
+                    DirectoryMessage.Content = "";
+                    if (!currentTab.Equals("Directories"))
                     {
                         //Error: this detects single click on listbox as well
                         
@@ -465,6 +466,12 @@ namespace RemoteCodeAnalyzerClient
             string fileToShare =  DirectoryList.SelectedItem.ToString();
             string shareToUser = UserToShareText.Text;
 
+            if(fileToShare == null)
+            {
+                DirectoryMessage.Content = "Please select file to share";
+                return;
+            }
+
             if(fileToShare != null && shareToUser != null)
             {
                 Message msg = new Message();
@@ -478,6 +485,65 @@ namespace RemoteCodeAnalyzerClient
                 string response = channel.grantFilePermission(msg);
                 DirectoryMessage.Content = response;
             }
+        }
+
+        /*This handles when user wants to add a comment to a specific directory*/
+        private void AddCommentButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileToShare = DirectoryList.SelectedItem.ToString();
+            string comment = CommentTextBox.Text;
+
+            if (fileToShare == null)
+            {
+                DirectoryMessage.Content = "Please select file to comment";
+                return;
+            }
+
+            if (fileToShare != null && comment != null)
+            {
+                Message msg = new Message();
+                msg.sourceAddress = address;
+                msg.destinationAddress = address;
+                msg.messageType = "COMMENT_FILE";
+                msg.author = authenticatedUser;
+                msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                msg.body = fileRetrievePath + "\\" + fileToShare + "|" + comment;
+
+                string response = channel.addComment(msg);
+                DirectoryMessage.Content = response;
+            }
+        }
+
+        /*Retrieve comments for a specific directory/dile*/
+        private void GetCommentButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileToShare = DirectoryList.SelectedItem.ToString();
+            if(fileToShare == null)
+            {
+                DirectoryMessage.Content = "Please select file to retrieve comments.";
+                return;
+            }
+
+            Message msg = new Message();
+            msg.sourceAddress = address;
+            msg.destinationAddress = address;
+            msg.messageType = "RETRIEVE_COMMENT_FILE";
+            msg.author = authenticatedUser;
+            msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+            msg.body = fileRetrievePath + "\\" + fileToShare;
+
+            ArrayList response = channel.getComment(msg);
+
+            //display in new window
+            if(response.Count > 0)
+            {
+                CommentWindow commentWindow = new CommentWindow(response);
+                commentWindow.ShowDialog();
+            }else
+            {
+                DirectoryMessage.Content = "No Comments Avaliable for Selection.";
+            }
+            
         }
     }
 }

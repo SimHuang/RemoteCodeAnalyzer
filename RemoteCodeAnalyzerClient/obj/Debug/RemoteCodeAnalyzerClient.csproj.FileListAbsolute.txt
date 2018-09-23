@@ -17,3 +17,5 @@ C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\Rem
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\RemoteCodeAnalyzer.pdb
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\RemoteCodeAnalyzer.exe.config
 C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\bin\Debug\Authentication\user.xml
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Debug\CommentWindow.g.cs
+C:\Users\Simon\Desktop\RemoteCodeAnalyzer\RemoteCodeAnalyzerClient\obj\Debug\CommentWindow.baml

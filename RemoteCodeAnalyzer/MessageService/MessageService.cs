@@ -126,5 +126,26 @@ namespace MessageService
         {
             return Authentication.createNewUser(message);
         }
+
+        /*
+         * Add Comments to a file or directory
+         */
+        public string addComment(Message message)
+        {
+            return FileAction.AddFileComment(message);
+        }
+
+        /*Retrieve comments for specific file or directory*/
+        public ArrayList getComment(Message message)
+        {
+            return FileAction.getComment(message);
+        }
+
+        /*Calculate the Maintainibility Index and store it in appropriate files
+         This method is called in the upload file method.*/
+        //public void calculateMaintainibility(string[] filePath)
+        //{
+        //    TestParser.calculateMaintainibilityIndex(filePath);
+        //}
     }
 }

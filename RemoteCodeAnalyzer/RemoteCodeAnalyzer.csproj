@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\Authentication.cs" />
+    <Compile Include="File\FileAction.cs" />
     <Compile Include="File\FilePermission.cs" />
     <Compile Include="File\ServerFileStream.cs" />
     <Compile Include="File\HiResTimer.cs" />
@@ -62,7 +63,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="File\file_metaData.xml" />
+    <Content Include="File\file_metaData.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Authentication\user.xml">
@@ -70,5 +73,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
