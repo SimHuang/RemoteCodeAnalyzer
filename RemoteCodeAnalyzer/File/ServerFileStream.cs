@@ -13,6 +13,7 @@
 /// upload of files.                                                ///
 ///////////////////////////////////////////////////////////////////////
 
+using CodeAnalysis;
 using MessageService;
 using System;
 using System.Collections.Generic;
@@ -85,12 +86,19 @@ namespace RemoteCodeAnalyzer.File
                 }
             }
             hrt.Stop();
-            addToFileMetaData(msg.username, filename, count);
+            string xmlName = addToFileMetaData(msg.username, filename, count);
             Console.Write("\n  Received file \"{0}\"", filename);
 
-            string[] files = new string[10];
-            files[0] = rfilename;
-            calculateMaintainibility(files);
+            //can upload one one file at once
+            string[] files = new string[2];
+            string correctPath = "../../FileStorage/" + msg.username;
+            if(msg.uploadAsDirectory)
+            {
+                correctPath += "/" + count;
+            }
+            files[0] = correctPath;
+            files[1] = filename;
+            calculateMaintainibility(files, xmlName);
 
             return "File successfully uploaded.";
         }
@@ -99,9 +107,15 @@ namespace RemoteCodeAnalyzer.File
          * Add The file to the file meta data xml to keep track of it. Traverse 
          * the metadata file through upload path
          */
-        private static void addToFileMetaData(string username, string filename, int isDirectory)
+        private static string addToFileMetaData(string username, string filename, int isDirectory)
         {
             XDocument doc = XDocument.Load("../../File/file_metaData.xml");
+
+            //store the property file
+            Guid g = Guid.NewGuid();
+            string GuidString = Convert.ToBase64String(g.ToByteArray());
+            GuidString = GuidString.Replace("=", "");
+            GuidString = GuidString.Replace("+", "");
 
             XElement userDir = doc.Element("Directories")
                             .Elements("Directory")
@@ -110,19 +124,28 @@ namespace RemoteCodeAnalyzer.File
             if(isDirectory > 0)
             {
                 userDir.AddFirst(new XElement("Directory", new XAttribute("name", isDirectory.ToString()),
-                                new XElement("File", new XAttribute("name", filename), string.Empty)));
+                                new XElement("File", new XAttribute("name", filename), new XElement("Property", GuidString))));
             }
             else
             {
-                userDir.Add(new XElement("File", new XAttribute("name", filename), string.Empty));
+                userDir.Add(new XElement("File", new XAttribute("name", filename), new XElement("Property", GuidString)));
             }
             doc.Save("../../File/file_metaData.xml");
+
+            //create xml file in FileMaintainibility folder
+            XDocument newPropertyFile = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes")
+                );
+            newPropertyFile.Add(new XElement("Properties"));
+            newPropertyFile.Save("../../FileMaintainibility/" + GuidString + ".xml");
+
+            return GuidString;
         }
 
         //helper method to calculate maintainibility index
-        public static void calculateMaintainibility(string[] filePaths)
+        public static void calculateMaintainibility(string[] filePaths, string xmlName)
         {
-            //TestParser.calculateMaintainibilityIndex(filePaths);
+            TestParser.calculateMaintainibilityIndex(filePaths, xmlName);
         }
     }
 }

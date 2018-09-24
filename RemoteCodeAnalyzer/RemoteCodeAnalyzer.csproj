@@ -54,6 +54,14 @@
     <Compile Include="MessageService\IMessageService.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageService\MessageService.cs" />
+    <Compile Include="Parser\Display.cs" />
+    <Compile Include="Parser\IRuleandAction.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\RulesAndActions.cs" />
+    <Compile Include="Parser\ScopeStack.cs" />
+    <Compile Include="Parser\Semi.cs" />
+    <Compile Include="Parser\Toker.cs" />
+    <Compile Include="Parser\UserType.cs" />
     <Compile Include="RemoteCodeAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +81,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="FileMaintainibility\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

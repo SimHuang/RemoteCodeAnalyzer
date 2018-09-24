@@ -66,6 +66,8 @@ namespace MessageService
         ArrayList getComment(Message message);
 
         //void calculateMaintainibility(string[] filePath);
+        [OperationContract]
+        ArrayList getProperties(Message message);
     }
 
     [MessageContract]

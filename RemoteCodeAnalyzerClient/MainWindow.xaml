@@ -20,14 +20,15 @@
             </TabItem>
             <TabItem Name="DirectoryTab" Header="Directories">
                 <Grid Background="#FFFFFF">
-                    <ListBox Name="DirectoryList" HorizontalAlignment="Left" Height="266" Margin="10,36,0,0" VerticalAlignment="Top" Width="451" MouseDoubleClick="ListItem_DoubleClicked"/>
+                    <ListBox Name="DirectoryList" HorizontalAlignment="Left" Height="268" Margin="10,36,0,0" VerticalAlignment="Top" Width="451" MouseDoubleClick="ListItem_DoubleClicked"/>
                     <Label Name="DirectoryMessage" Content="Label" HorizontalAlignment="Left" Margin="10,418,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.331,-0.409" Width="454" Height="27"/>
                     <Label Content="Your Files:" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Width="106"/>
-                    <Button Name="GrantPermissionBtn" Content="Grant File Permission" HorizontalAlignment="Left" Margin="288,312,0,0" VerticalAlignment="Top" Width="173" Click="GrantPermissionBtn_Click" Height="23"/>
-                    <TextBox Name="UserToShareText" HorizontalAlignment="Left" Height="23" Margin="10,312,0,0" TextWrapping="Wrap" Text="Enter a valid user" VerticalAlignment="Top" Width="273"/>
-                    <TextBox Name="CommentTextBox" HorizontalAlignment="Left" Height="23" Margin="10,348,0,0" TextWrapping="Wrap" Text="Enter Comment" VerticalAlignment="Top" Width="318"/>
-                    <Button Name="AddCommentButton" Content="Add Comment" HorizontalAlignment="Left" Margin="333,348,0,0" VerticalAlignment="Top" Width="128" Height="23" Click="AddCommentButton_Click"/>
-                    <Button Name="GetCommentButton" Content="Get Comment" HorizontalAlignment="Left" Margin="10,384,0,0" VerticalAlignment="Top" Width="451" Click="GetCommentButton_Click"/>
+                    <Button Name="GrantPermissionBtn" Content="Grant File Permission" HorizontalAlignment="Left" Margin="288,309,0,0" VerticalAlignment="Top" Width="173" Click="GrantPermissionBtn_Click" Height="23"/>
+                    <TextBox Name="UserToShareText" HorizontalAlignment="Left" Height="23" Margin="10,309,0,0" TextWrapping="Wrap" Text="Enter a valid user" VerticalAlignment="Top" Width="273"/>
+                    <TextBox Name="CommentTextBox" HorizontalAlignment="Left" Height="23" Margin="10,340,0,0" TextWrapping="Wrap" Text="Enter Comment" VerticalAlignment="Top" Width="318"/>
+                    <Button Name="AddCommentButton" Content="Add Comment" HorizontalAlignment="Left" Margin="333,337,0,0" VerticalAlignment="Top" Width="128" Height="23" Click="AddCommentButton_Click"/>
+                    <Button Name="GetCommentButton" Content="Get Comment" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Width="451" Click="GetCommentButton_Click"/>
+                    <Button Name="PropertyButton" Content="Get Properties" HorizontalAlignment="Left" Margin="10,393,0,0" VerticalAlignment="Top" Width="451" Click="PropertyButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Name="FileTab" Header="Files">

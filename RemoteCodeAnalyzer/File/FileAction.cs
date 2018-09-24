@@ -138,5 +138,45 @@ namespace RemoteCodeAnalyzer.File
 
             return commentList;
         }
+
+        public static ArrayList getFileProperty(Message message)
+        {
+            ArrayList propertyList = new ArrayList();
+
+            Console.Write(message.dateTime + " " + message.author + " " + message.messageType + "\n");
+            ArrayList commentList = new ArrayList();
+            string author = message.author;
+            string path = message.body;
+            string propertyFileName = "";
+
+            string[] heirarchy = path.Split('\\');
+            XDocument doc = XDocument.Load("../../File/file_metaData.xml");
+            XElement directoryNode = doc.Element("Directories");
+
+            XElement userDirectory = directoryNode.Elements("Directory")
+                    .Where(x => x.Attribute("name").Value.Equals(heirarchy[0])).FirstOrDefault();
+
+            if(heirarchy.Length == 2)
+            {
+                XElement userFile = userDirectory.Elements("File")
+                    .Where(x => x.Attribute("name").Value.Equals(heirarchy[1])).FirstOrDefault();
+
+                XElement propertyFile = userFile.Element("Property");
+                propertyFileName = propertyFile.Value;
+
+                //get all nodes in the property file
+                XDocument propertyDoc = XDocument.Load("../../FileMaintainibility/" + propertyFileName + ".xml");
+                XElement root = propertyDoc.Element("Properties");
+                IEnumerable<XElement> fileProperties = root.Descendants();
+
+                foreach (XElement node in fileProperties)
+                {
+                    propertyList.Add(node.Value);
+                }
+
+            }
+
+            return propertyList;
+        }
     }
 }

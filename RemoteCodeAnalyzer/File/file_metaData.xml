@@ -15,29 +15,25 @@
   <Directory name="john">
     <Directory name="3">
       <File name="upload_two.txt">
-        <Comment commenter="john">Enter sfsdfsdd</Comment>
+        <Comment commenter="john">Well Written code</Comment>
       </File>
-      <Comment commenter="john">3453453dgdgdfgd</Comment>
+      <Comment commenter="john">This has poor cohesion</Comment>
     </Directory>
     <Directory name="1">
       <File name="upload_one.txt"></File>
-      <Comment commenter="john">3453453dgdgdfgd</Comment>
+      <Comment commenter="john">improve maintainibility index</Comment>
     </Directory>
     <Directory name="2">
       <File name="upload_one.txt"></File>
       <Comment commenter="john">nice directory</Comment>
-      <Comment commenter="john">3453453dgdgdfgd</Comment>
+      <Comment commenter="john">improve indexing</Comment>
     </Directory>
     <File name="instagram.cs"></File>
     <File name="money.txt">
       <Comment commenter="john">this is poorly written</Comment>
       <Comment commenter="john">nice file</Comment>
-      <Comment commenter="john">nice file</Comment>
     </File>
     <File name="upload_two.txt" />
-    <File name="upload_two.txt"></File>
-    <File name="upload_one.txt"></File>
-    <File name="upload_one.txt"></File>
   </Directory>
   <Directory name="samsmith">
     <File name="chicken.cs"></File>

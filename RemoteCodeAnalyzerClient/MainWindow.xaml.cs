@@ -545,5 +545,40 @@ namespace RemoteCodeAnalyzerClient
             }
             
         }
+
+        //return properties when user click
+        private void PropertyButton_Click(object sender, RoutedEventArgs e)
+        {
+            string file = DirectoryList.SelectedItem.ToString();
+            if (file == null)
+            {
+                DirectoryMessage.Content = "Please select file to retrieve comments.";
+                return;
+            }
+
+            if(file.Contains("."))
+            {
+                Message msg = new Message();
+                msg.sourceAddress = address;
+                msg.destinationAddress = address;
+                msg.messageType = "RETRIEVE_FILE_PROPERTY";
+                msg.author = authenticatedUser;
+                msg.dateTime = DateTime.Now.ToString(@"MM\/dd\/yyyy h\:mm tt");
+                msg.body = fileRetrievePath + "\\" + file;
+
+                ArrayList response = channel.getProperties(msg);
+
+                //display in new window
+                if (response.Count > 0)
+                {
+                    PropertyWindow propertyWindow = new PropertyWindow(response);
+                    propertyWindow.ShowDialog();
+                }
+                else
+                {
+                    DirectoryMessage.Content = "No properties Avaliable for Selection.";
+                }
+            }
+        }
     }
 }

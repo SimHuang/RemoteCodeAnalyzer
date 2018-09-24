@@ -141,6 +141,11 @@ namespace MessageService
             return FileAction.getComment(message);
         }
 
+        public ArrayList getProperties(Message message)
+        {
+            return FileAction.getFileProperty(message);
+        }
+
         /*Calculate the Maintainibility Index and store it in appropriate files
          This method is called in the upload file method.*/
         //public void calculateMaintainibility(string[] filePath)
